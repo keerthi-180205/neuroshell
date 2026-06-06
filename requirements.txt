@@ -1,0 +1,31 @@
+# ──────────────────────────────────────────────────────────
+#   NeuroShell — requirements.txt
+#   NeuroLink OS Project
+#
+#   Install: pip install -r requirements.txt
+# ──────────────────────────────────────────────────────────
+
+
+# ── v0.1 Current CLI ───────────────────────────────────────
+# No external dependencies yet.
+# The current CLI uses only Python built-ins (input, print).
+# Dependencies will be added as features are implemented.
+
+
+# ── v0.1 Next — LLM Integration (coming soon) ─────────────
+# requests>=2.31.0          # HTTP calls to Ollama API
+# rich>=13.7.0              # Beautiful terminal formatting
+
+
+# ── v0.2 NeuroBrain — Memory (planned) ────────────────────
+# chromadb>=0.4.0           # Vector memory store
+# networkx>=3.2             # Knowledge graph
+
+
+# ── v0.3 NeuroSwarm — Agents (planned) ────────────────────
+# langgraph>=0.0.30         # Multi-agent orchestration
+# langchain>=0.1.0          # LLM abstraction layer
+
+
+# ── v1.0 NeuroLink OS — Voice (planned) ───────────────────
+# openai-whisper            # Local voice input

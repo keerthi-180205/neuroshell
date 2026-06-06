@@ -68,26 +68,27 @@ Here's what it will do when complete:
 ## 🏗️ Project Structure
 
 ```
-neuroshell/
+neuroshell/                    ← repo root
 │
-├── neuroshell.py              # ✅ LIVE — Main CLI loop (input → echo → exit)
+├── neuroshell.py              # ✅ LIVE — CLI loop (8 lines, input → echo → exit)
+├── LICENSE                    # ✅ Apache 2.0
+├── README.md                  # ✅ This file
+├── .gitignore                 # ✅ Python + venv rules
 │
-├── core/                      # 🔨 IN DEVELOPMENT
-│   ├── command_parser.py      # 🔨 Rule-based intent detection (planned)
-│   └── context_manager.py     # 🧠 Placeholder — v0.2 memory system
+├── core/                      # 🎯 PLANNED — v0.1 intent detection
+│   ├── command_parser.py      # 🎯 Rule-based intent detection
+│   └── context_manager.py     # 🎯 Placeholder — v0.2 memory system
 │
-├── llm/                       # 🔨 IN DEVELOPMENT
-│   └── ollama_client.py       # 🔨 Ollama API client (planned)
+├── llm/                       # 🎯 PLANNED — v0.1 Ollama integration
+│   └── ollama_client.py       # 🎯 Ollama API client
 │
-├── utils/                     # 🔨 IN DEVELOPMENT
-│   └── formatter.py           # 🔨 Rich terminal output formatting (planned)
+├── utils/                     # 🎯 PLANNED — v0.1 output formatting
+│   └── formatter.py           # 🎯 Rich terminal output
 │
-├── plugins/                   # 🎯 PLANNED — v0.3 plugin ecosystem
-│   └── README.md
-│
-├── requirements.txt
-└── README.md
+└── plugins/                   # 🎯 PLANNED — v0.3 plugin ecosystem
 ```
+
+> 📌 **Current reality:** Only `neuroshell.py` exists. All other modules are actively being built.
 
 ---
 
@@ -109,24 +110,13 @@ git clone https://github.com/keerthi-180205/neuroshell.git
 cd neuroshell
 ```
 
-### Step 2: Create a Virtual Environment
-
-```bash
-python -m venv venv
-source venv/bin/activate        # On Windows: venv\Scripts\activate
-```
-
-### Step 3: Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Step 4: Run NeuroShell
+### Step 2: Run NeuroShell
 
 ```bash
 python neuroshell.py
 ```
+
+> No dependencies needed yet. `requirements.txt` will be added once LLM integration begins.
 
 > 🔨 **Ollama integration is in development.** Steps to connect to a local LLM will be added in the next update.
 
@@ -137,27 +127,27 @@ python neuroshell.py
 Once running, you'll see the NeuroShell prompt. Type anything and press Enter:
 
 ```
-──────────────────────────────────────────
-   🧠  NeuroShell v0.1 | NeuroLink OS
-   Type your query. Type 'exit' to quit.
-──────────────────────────────────────────
+> python neuroshell.py
 
 > hello neuroshell
-[NeuroShell]: You said → hello neuroshell
+[NeuroShell]: You said -> hello neuroshell
+
+> explain recursion
+[NeuroShell]: You said -> explain recursion
 
 > exit
-   👋 Goodbye. NeuroShell shutting down.
+Exiting NeuroShell...
 ```
 
-> ⚠️ **AI responses are in development.** The current version echoes your input. Once Ollama integration is complete, queries will be processed by a local LLM and return intelligent responses.
+> ⚠️ **AI responses are in development.** The current version echoes your input back. Once Ollama integration is complete, queries will be routed to a local LLM for intelligent responses.
 
 ### Intent Keywords *(In Development)*
 
 | You say... | NeuroShell will do... | Status |
 |---|---|---|
-| `explain <topic>` | Explains the concept in detail | 🔨 In Development |
-| `summarize <topic>` | Returns a concise summary | 🔨 In Development |
-| anything else | General intelligent query | 🔨 In Development |
+| `explain <topic>` | Explains the concept in detail | 🎯 Planned |
+| `summarize <topic>` | Returns a concise summary | 🎯 Planned |
+| anything else | General intelligent query | 🎯 Planned |
 
 ---
 
