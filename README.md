@@ -1,283 +1,225 @@
 <div align="center">
 
-<img src="https://img.shields.io/badge/NeuroShell-v0.1.0-6C63FF?style=for-the-badge&logo=python&logoColor=white" />
-<img src="https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-<img src="https://img.shields.io/badge/Ollama-Local_LLM-black?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" />
+![NeuroShell](https://img.shields.io/badge/NeuroShell-v0.1.0-8A2BE2?style=for-the-badge&logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.11%2B-blue?style=for-the-badge&logo=python&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-Local%20LLM-000000?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
 
-<br/><br/>
-
-```
-███╗   ██╗███████╗██╗   ██╗██████╗  ██████╗ ███████╗██╗  ██╗███████╗██╗     ██╗
-████╗  ██║██╔════╝██║   ██║██╔══██╗██╔═══██╗██╔════╝██║  ██║██╔════╝██║     ██║
-██╔██╗ ██║█████╗  ██║   ██║██████╔╝██║   ██║███████╗███████║█████╗  ██║     ██║
-██║╚██╗██║██╔══╝  ██║   ██║██╔══██╗██║   ██║╚════██║██╔══██║██╔══╝  ██║     ██║
-██║ ╚████║███████╗╚██████╔╝██║  ██║╚██████╔╝███████║██║  ██║███████╗███████╗███████╗
-╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
-```
+<pre>
+ _   _                      ____  _          _ _ 
+| \ | |                    / ___|| |__   ___| | |
+|  \| | ___ _   _ _ __ ___ \___ \| '_ \ / _ \ | |
+| . ` |/ _ \ | | | '__/ _ \ ___) | | | |  __/ | |
+| |\  |  __/ |_| | | | (_) |____/|_| |_|\___|_|_|
+|_| \_|\___|\__,_|_|  \___/                       
+</pre>
 
 ### 🧠 The AI-powered CLI that understands you. *(In Development)*
-### The foundation of **NeuroLink OS**.
 
-<br/>
+**The foundation of NeuroLink OS.**
 
-**[Getting Started](#-installation) · [Features](#-features) · [Usage](#-usage) · [Roadmap](#-roadmap) · [Contributing](#-contributing)**
-
-<br/>
+[Getting Started](#-getting-started) · [Features](#-features) · [Usage](#-usage) · [Roadmap](#-roadmap) · [Contributing](#-contributing)
 
 </div>
 
 ---
 
-## 🌟 What is NeuroShell?
+NeuroShell isn't a chatbot wrapper or a "Jarvis clone." It's built in three deliberate stages:
 
-**NeuroShell** is the command-line foundation of **NeuroLink OS** — an open-source, local-first AI intelligence layer being built for your machine. The vision: instead of memorizing commands, you express intent in plain English and a local LLM figures out the rest.
+- **V1 — Understand Me** *(this repo, in progress)*
+- **V2 — Control My Computer**
+- **V3 — Help Me Accomplish My Goals**
 
-This is **v0.1 — the very first commit**. The CLI loop is live. The AI engine is being built.
+V1 focuses on getting the foundation right: natural conversation, explicit long-term memory, personal knowledge retrieval (RAG), a small set of safe tools, read-only Linux system awareness, and voice I/O — all behind clean, swappable interfaces.
 
-Here's what it will do when complete:
-
-```bash
-> explain how recursion works in Python
-> summarize the contents of my notes.txt
-> what is a docker container?
 ```
+You:        "Hey NeuroShell."
+NeuroShell: "Hey! What's up?"
 
-> ⚠️ **Current state:** NeuroShell v0.1 is the working CLI skeleton. Ollama integration, intent detection, and AI responses are actively in development. Follow the repo to get notified when they land.
+You:        "Remember that I'm working on NeuroShell, my AI assistant."
+NeuroShell: "Got it — I'll remember that."
 
-> 💡 **NeuroShell is v0.1 of NeuroLink OS** — an ambitious open-source project to build a full AI intelligence layer for your machine. This is where it starts.
+You:        "How much RAM am I using?"
+NeuroShell: "9.8 GB out of 16 GB. Chrome, VS Code, and Python are your top consumers."
+
+You:        "Read my ML notes and explain regularization."
+NeuroShell: "Sure — your notes describe regularization as..."
+```
 
 ---
 
 ## ✨ Features
 
-### v0.1 — Available Now
+- 💬 **Conversation engine** — session history, context management, automatic summarization when history grows
+- 🧠 **Explicit long-term memory** — NeuroShell only remembers what you tell it to (`remember`, `forget`, `what do you remember about me`, `delete all my memories`)
+- 📚 **Personal knowledge / RAG** — ingest PDFs, Markdown, TXT, DOCX; answers cite their source
+- 🛠️ **Safe tool calling** — calculator, time/date, weather, web search
+- 🐧 **Read-only Linux system awareness** — CPU, RAM, disk, GPU, processes, OS info (via `psutil`)
+- 🎙️ **Voice I/O** — faster-whisper (STT) + Piper (TTS), fully optional; text/CLI always works
+- 🔒 **Permission system** — 6 levels (0–5); V1 only ever operates at levels 0–2
+- 📝 **Audit logging** — every tool call, permission decision, and memory change is logged
+- 🔌 **Provider-agnostic LLM layer** — cloud (OpenAI-compatible) or local (Ollama), swap without touching the rest of the app
 
-| Feature | Status | Description |
+### What V1 deliberately excludes
+
+No arbitrary shell execution, no root/sudo access, no autonomous or destructive actions, no multi-agent orchestration, no GUI. Those are V2/V3 territory — see [Roadmap](#-roadmap).
+
+---
+
+## 🏗️ Architecture
+
+```
+User (text/voice)
+      │
+Input Processing
+      │
+Context Manager ── Memory Retrieval ── Knowledge Retrieval (RAG)
+      │
+   AI Brain (LLM abstraction)
+      │
+Intent / Tool Decision
+      │
+Tool Router ── Permission Layer ── Tool Execution
+      │
+Response Generation ── Memory Update (if applicable)
+      │
+Output (text/voice)
+```
+
+Every external dependency — LLM provider, embeddings, STT, TTS — sits behind an interface. The core never imports a provider SDK directly.
+
+---
+
+## 🧰 Tech stack
+
+| Layer | Choice | Why |
 |---|---|---|
-| ⚡ **CLI Loop** | ✅ Live | Interactive terminal loop — runs, accepts input, exits cleanly |
-| 🗣️ **Natural Language Input** | 🔨 In Development | Plain English → LLM routing |
-| 🧩 **Intent Detection** | 🔨 In Development | Detects `explain`, `summarize`, or general queries |
-| 🤖 **Local LLM via Ollama** | 🔨 In Development | Runs on `llama3` or any Ollama-supported model |
-| 🎨 **Rich Terminal Output** | 🔨 In Development | Formatted responses powered by `rich` |
-| 🔒 **100% Local & Private** | 🎯 Planned | Zero data leaves your machine. No API keys needed. |
+| Language | Python 3.11+ | typed, async where it matters |
+| LLM | Provider-agnostic (OpenAI-compatible cloud / Ollama local) | no vendor lock-in |
+| Database | PostgreSQL + pgvector | one store for relational + vector data |
+| Migrations | Alembic | reproducible schema |
+| STT | faster-whisper | fast, local-capable |
+| TTS | Piper | lightweight, local |
+| Wake word | openWakeWord (optional) | opt-in, not required |
+| CLI | Rich | polished terminal UX without a GUI |
+| Testing | pytest + mocks | no real API calls in test suite |
+| Infra (dev) | Docker Compose (Postgres/pgvector only) | voice & system tools run on host |
+
+No LangChain, LangGraph, CrewAI, or AutoGen — the architecture is intentionally explicit so the internals stay understandable.
 
 ---
 
-## 🏗️ Project Structure
-
-```
-neuroshell/                    ← repo root
-│
-├── neuroshell.py              # ✅ LIVE — CLI loop (8 lines, input → echo → exit)
-├── LICENSE                    # ✅ Apache 2.0
-├── README.md                  # ✅ This file
-├── .gitignore                 # ✅ Python + venv rules
-│
-├── core/                      # 🎯 PLANNED — v0.1 intent detection
-│   ├── command_parser.py      # 🎯 Rule-based intent detection
-│   └── context_manager.py     # 🎯 Placeholder — v0.2 memory system
-│
-├── llm/                       # 🎯 PLANNED — v0.1 Ollama integration
-│   └── ollama_client.py       # 🎯 Ollama API client
-│
-├── utils/                     # 🎯 PLANNED — v0.1 output formatting
-│   └── formatter.py           # 🎯 Rich terminal output
-│
-└── plugins/                   # 🎯 PLANNED — v0.3 plugin ecosystem
-```
-
-> 📌 **Current reality:** Only `neuroshell.py` exists. All other modules are actively being built.
-
----
-
-## 📦 Installation
+## 🚀 Getting Started
 
 ### Prerequisites
+- Python 3.11+
+- Docker (for Postgres + pgvector)
+- An LLM provider API key, or a local [Ollama](https://ollama.ai) install
 
-Before you begin, ensure you have:
-
-- **Python 3.11+** installed → [Download](https://www.python.org/downloads/)
-- **Ollama** *(optional for now — required in future versions)* → [Download](https://ollama.ai)
-
-> ⚠️ Ollama integration is in development. You can run the current CLI without it.
-
-### Step 1: Clone the Repository
+### Installation
 
 ```bash
 git clone https://github.com/keerthi-180205/neuroshell.git
 cd neuroshell
+python -m venv venv && source venv/bin/activate
+pip install -e .
+cp .env.example .env        # add your LLM provider key, DB URL, etc.
+docker compose up -d        # starts Postgres + pgvector
+neuroshell db upgrade       # run migrations
 ```
-
-### Step 2: Run NeuroShell
-
-```bash
-python neuroshell.py
-```
-
-> No dependencies needed yet. `requirements.txt` will be added once LLM integration begins.
-
-> 🔨 **Ollama integration is in development.** Steps to connect to a local LLM will be added in the next update.
 
 ---
 
-## 🚀 Usage
+## 🖥️ Usage
 
-Once running, you'll see the NeuroShell prompt. Type anything and press Enter:
-
+```bash
+neuroshell chat        # start a text conversation
+neuroshell voice        # start voice mode
+neuroshell memory       # inspect/manage long-term memory
+neuroshell knowledge    # manage the RAG knowledge base
+neuroshell system       # query Linux system info directly
+neuroshell config       # view/edit configuration
+neuroshell doctor       # check environment health
 ```
-> python neuroshell.py
-
-> hello neuroshell
-[NeuroShell]: You said -> hello neuroshell
-
-> explain recursion
-[NeuroShell]: You said -> explain recursion
-
-> exit
-Exiting NeuroShell...
-```
-
-> ⚠️ **AI responses are in development.** The current version echoes your input back. Once Ollama integration is complete, queries will be routed to a local LLM for intelligent responses.
-
-### Intent Keywords *(In Development)*
-
-| You say... | NeuroShell will do... | Status |
-|---|---|---|
-| `explain <topic>` | Explains the concept in detail | 🎯 Planned |
-| `summarize <topic>` | Returns a concise summary | 🎯 Planned |
-| anything else | General intelligent query | 🎯 Planned |
 
 ---
 
 ## ⚙️ Configuration
 
-> 🔨 **Configuration is in development.** Once Ollama integration is complete, NeuroShell will connect to a local LLM with the following defaults:
+All behavior is config-driven — see `config/neuroshell.yaml` and `.env.example`. Key sections:
 
+```yaml
+llm:
+  provider: openai_compatible   # or: ollama
+  model: <model-name>
+
+personality:
+  name: NeuroShell
+  style: friendly
+  humor: moderate
+  verbosity: balanced
+
+voice:
+  enabled: false
+  stt: faster-whisper
+  tts: piper
+  wake_word: false
+
+security:
+  max_permission_level: 2   # V1 hard ceiling
 ```
-Ollama URL : http://localhost:11434   ← coming in next update
-Model      : llama3                   ← configurable via ollama_client.py
-```
 
-You'll be able to change the model in `llm/ollama_client.py`:
+---
 
-```python
-MODEL = "llama3"          # change to "mistral", "phi3", "gemma", etc.
-```
+## 🔒 Security Model
 
-> Browse all supported models at [ollama.ai/library](https://ollama.ai/library)
+| Level | Scope | Enabled in V1 |
+|---|---|---|
+| 0 | Conversation only | ✅ |
+| 1 | Read-only information | ✅ |
+| 2 | Safe local tools | ✅ |
+| 3 | File modification | ❌ (V2) |
+| 4 | System modification | ❌ (V2) |
+| 5 | Administrative/root | ❌ (V3, if ever) |
+
+The LLM never receives unrestricted shell access, root privileges, or secrets it doesn't need. Every tool call and permission decision is audit-logged.
+
+---
+
+## 🔐 Privacy
+
+NeuroShell is local-first where it can be:
+
+- **Stays local**: system info, database, memory, local documents, voice (when using local STT/TTS)
+- **Leaves the machine**: cloud LLM calls, cloud web search, any other external API you enable
+
+You always know what's local vs. cloud from the config file.
 
 ---
 
 ## 🗺️ Roadmap
 
-NeuroShell is **v0.1** of a much larger vision. Here's where we're headed:
+- [x] V1 — Understand Me: conversation, memory, RAG, safe tools, read-only system info, voice
+- [ ] V2 — Control My Computer: supervised file/system modification, broader automation
+- [ ] V3 — Help Me Accomplish My Goals: goal-directed assistance, plugin ecosystem (GitHub, calendar, Docker, etc.)
 
-### 🔨 v0.1 — NeuroShell *(In Progress)*
-- [x] Working CLI loop (input → echo → exit)
-- [ ] Intent detection (explain / summarize / general)
-- [ ] Ollama local LLM integration
-- [ ] Rich terminal output
-- [ ] Modular folder structure (core/, llm/, utils/)
-
-### 🔜 v0.2 — NeuroBrain *(Month 9)*
-- [ ] Persistent conversation memory via ChromaDB
-- [ ] Multi-turn interaction (context-aware)
-- [ ] Knowledge graph of your machine (NetworkX)
-- [ ] `neuro remember` / `neuro forget` commands
-- [ ] Passive awareness mode — proactive suggestions
-
-### 🔮 v0.3 — NeuroSwarm *(Month 10)*
-- [ ] Multi-agent parallel execution (LangGraph)
-- [ ] Plugin API — community-built NeuroPlugins
-- [ ] Time-travel undo — `neuro undo last 3 actions`
-- [ ] Textual TUI dashboard (NeuroInsights)
-- [ ] Plugin marketplace launch
-
-### 🌐 v1.0 — NeuroLink OS *(Month 11–12)*
-- [ ] Voice input via OpenAI Whisper (local)
-- [ ] Vision input — screenshot a bug, say "fix this"
-- [ ] Cross-platform: Linux, macOS, Windows (beta)
-- [ ] Optional cloud sync of memory graph
-- [ ] Full MkDocs documentation + contributor guide
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology | Status |
-|---|---|---|
-| Language | Python 3.11+ | ✅ Active |
-| LLM Runtime | Ollama (local, GGUF models) | 🔨 In Development |
-| Terminal UI | Rich | 🔨 In Development |
-| HTTP Client | Requests | 🔨 In Development |
-| Memory | ChromaDB + NetworkX + SQLite | 🎯 Planned v0.2 |
-| Agents | LangGraph + AsyncIO | 🎯 Planned v0.3 |
-| Voice | OpenAI Whisper (local) | 🎯 Planned v1.0 |
-| Plugins | PyPI entry_points | 🎯 Planned v0.3 |
+V1 milestones are tracked in [`docs/milestones.md`](docs/milestones.md).
 
 ---
 
 ## 🤝 Contributing
 
-NeuroShell is open to contributions of all kinds — from bug fixes to entirely new agent ideas.
-
-### Quick Start for Contributors
-
-```bash
-# 1. Fork the repo on GitHub
-
-# 2. Clone your fork
-git clone https://github.com/keerthi-180205/neuroshell.git
-
-# 3. Create a feature branch off dev
-git checkout -b feature/your-feature-name dev
-
-# 4. Make your changes
-
-# 5. Commit using Conventional Commits
-git commit -m "feat(parser): add 'define' intent detection"
-
-# 6. Push and open a PR → targeting the dev branch
-git push origin feature/your-feature-name
-```
-
-### Contribution Areas
-
-- 🐛 **Bug Reports** — Found something broken? Open an issue.
-- 💡 **Feature Ideas** — Have an idea for v0.2 or v0.3? Open a discussion.
-- 📖 **Documentation** — Improve clarity, fix typos, add examples.
-- 🔌 **Plugin Ideas** — Designing a future NeuroPlugin? Share the concept.
-
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before submitting a PR.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for dev setup, code style, and how to add a new tool. The tool interface is designed to be plugin-ready — see `docs/adding-tools.md`.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **Apache License 2.0** — see the [LICENSE](./LICENSE) file for details.
-
-You are free to use, modify, and distribute this software. If you build something with NeuroShell, a ⭐ star and a mention would mean the world.
+Licensed under the [Apache License 2.0](LICENSE).
 
 ---
 
-## 👨‍💻 Author
+## ⚠️ Disclaimer
 
-**Keerthi** — Building NeuroLink OS, one phase at a time.
-
-- GitHub: [@keerthi-180205](https://github.com/keerthi-180205)
-
----
-
-<div align="center">
-
-**If NeuroShell saved you time, gave you a spark, or just made you smile — drop a ⭐**
-
-*The world needs NeuroLink. Let's build it together.*
-
-<br/>
-
-`Python` · `Ollama` · `Local AI` · `CLI` · `Open Source` · `NeuroLink OS`
-
-</div>
+NeuroShell can read system state and call external APIs on your behalf. Review `config/neuroshell.yaml` before enabling voice or web access, and never commit `.env`, API keys, or personal knowledge-base documents to the repo.
