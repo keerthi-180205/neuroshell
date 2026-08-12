@@ -17,16 +17,28 @@ class ConversationContext:
     def __init__(self):
         self._history: list[dict[str, str]] = []
 
-    def add_message(self, role: str, content: str) -> None:
+    def add_message(self, role: str, content: str, name: str = None, args: dict = None, raw_part=None) -> None:
         """Add a message to conversation history.
         
         Args:
-            role: "user" or "assistant"
+            role: "user", "assistant", "tool_call", or "tool_result"
             content: The message text
+            name: The name of the tool (if applicable)
+            args: The tool arguments (if applicable)
+            raw_part: The raw API object (if applicable)
         """
-        if role not in ("user", "assistant"):
-            raise ValueError(f"Invalid role: {role}. Must be 'user' or 'assistant'.")
-        self._history.append({"role": role, "content": content})
+        if role not in ("user", "assistant", "tool_call", "tool_result"):
+            raise ValueError(f"Invalid role: {role}. Must be 'user', 'assistant', 'tool_call', or 'tool_result'.")
+            
+        message = {"role": role, "content": content}
+        if name:
+            message["name"] = name
+        if args is not None:
+            message["args"] = args
+        if raw_part is not None:
+            message["raw_part"] = raw_part
+            
+        self._history.append(message)
 
     def get_history(self) -> list[dict[str, str]]:
         """Return a COPY of the conversation history.

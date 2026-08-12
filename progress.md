@@ -20,8 +20,8 @@ NEUROSHELL
 ├── V1 — PERSONAL AI COMPANION
 │   │
 │   ├── Stage 1 — Basic Text Interaction Core   ✅ COMPLETED
-│   ├── Stage 2 — Tools & Function Execution    ◄── CURRENT
-│   ├── Stage 3 — Voice Interaction
+│   ├── Stage 2 — Tools & Function Execution    ✅ COMPLETED
+│   ├── Stage 3 — Voice & Terminal Command Integration ◄── CURRENT
 │   ├── Stage 4 — Personality & Personalization
 │   ├── Stage 5 — Long-Term Memory
 │   └── Stage 6 — Knowledge / RAG
@@ -67,21 +67,24 @@ NEUROSHELL
 
 ---
 
-## 🚧 Stage 2 Progress (Tools & Function Execution)
+## ✅ Stage 2 Progress (Tools & Function Execution)
 
 **Goal:** Give NeuroShell the ability to call Python functions (Tools) dynamically based on the conversation.
 
 ### Code Implementation
-- [ ] Define universal `Tool` base class
-- [ ] Implement `SystemInfoTool` (Check OS, RAM, CPU)
-- [ ] Implement `CalculatorTool` (Math operations)
-- [ ] Update `llm.py` to support tool calling
-- [ ] Update `orchestrator.py` to execute tools and return results to Gemini
+- ✅ Define universal `BaseAction` blueprint
+- ✅ Implement `ActionRegistry` and `ActionExecutor`
+- ✅ Implement basic security permissions (SAFE, READ_ONLY)
+- ✅ Implement `SystemInfoAction` (Check OS, Architecture)
+- ✅ Implement `CalculatorAction` (Math operations)
+- ✅ Implement `GetTimeAction` and `GetDateAction`
+- ✅ Update `llm.py` to support Gemini Function Calling
+- ✅ Update `orchestrator.py` to execute tools and return results to Gemini
 
 ### Validation & Testing
-- [ ] Unit tests for tools written
-- [ ] Orchestrator correctly handles tool loops
-- [ ] End-to-end manual test passes
+- ✅ Unit tests for Actions and Registry written (`test_actions.py`)
+- ✅ Orchestrator correctly handles tool loops
+- ✅ End-to-end manual terminal test passes
 
 ---
 
