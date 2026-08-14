@@ -1,6 +1,6 @@
 # NeuroShell — LLM abstraction layer
-import google.generativeai as genai
-from google.generativeai.types import content_types
+from google import genai
+from google.genai import types
 from app.core.config import Config
 
 class LLMResponse:
@@ -14,26 +14,28 @@ class LLMResponse:
 
 class LLMClient:
     def __init__(self):
-        genai.configure(api_key=Config.GEMINI_API_KEY)
+        self.client = genai.Client(api_key=Config.GEMINI_API_KEY)
 
     def generate(self, system_prompt: str, conversation_history: list[dict], available_tools: list[dict] = None) -> LLMResponse:
         
         # 1. Format tools for Gemini
         gemini_tools = [{"function_declarations": available_tools}] if available_tools else None
-
-        model = genai.GenerativeModel(
-            model_name=Config.GEMINI_MODEL,
-            system_instruction=system_prompt,
-            tools=gemini_tools
-        )
         
+        config_kwargs = {}
+        if system_prompt:
+             config_kwargs["system_instruction"] = system_prompt
+        if gemini_tools:
+             config_kwargs["tools"] = gemini_tools
+             
+        config = types.GenerateContentConfig(**config_kwargs)
+
         # 2. Convert our history into Gemini's exact format
         gemini_contents = []
         for msg in conversation_history:
             if msg["role"] == "user":
-                gemini_contents.append({"role": "user", "parts": [msg["content"]]})
+                gemini_contents.append({"role": "user", "parts": [{"text": msg["content"]}]})
             elif msg["role"] == "assistant":
-                gemini_contents.append({"role": "model", "parts": [msg["content"]]})
+                gemini_contents.append({"role": "model", "parts": [{"text": msg["content"]}]})
             elif msg["role"] == "tool_call":
                 # When the LLM decided to use a tool in the past
                 if "raw_part" in msg:
@@ -45,7 +47,6 @@ class LLMClient:
                     })
             elif msg["role"] == "tool_result":
                 # The result we gave back to the LLM
-                # Note: some Gemini versions prefer role="function" here, but the python SDK usually maps this correctly.
                 gemini_contents.append({
                     "role": "user", 
                     "parts": [{"function_response": {"name": msg["name"], "response": {"result": msg["content"]}}}]
@@ -53,7 +54,11 @@ class LLMClient:
 
         # 3. Ask Gemini for the next step!
         try:
-            response = model.generate_content(gemini_contents)
+            response = self.client.models.generate_content(
+                model=Config.GEMINI_MODEL,
+                contents=gemini_contents,
+                config=config
+            )
             part = response.candidates[0].content.parts[0]
 
             # 4. Check if Gemini decided to use a tool
@@ -61,7 +66,7 @@ class LLMClient:
                 return LLMResponse(
                     is_tool_call=True,
                     tool_name=part.function_call.name,
-                    tool_args=dict(part.function_call.args),
+                    tool_args=part.function_call.args if part.function_call.args else {},
                     raw_part=part
                 )
             

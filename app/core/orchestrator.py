@@ -1,7 +1,9 @@
 from app.core.config import Config
 from app.core.llm import LLMClient
+import random
 from app.core.context import ConversationContext
 from app.prompts.system_prompt import SYSTEM_PROMPT
+from app.core.router import IntentRouter
 
 # Import our new Stage 2 systems
 from app.actions.registry import ActionRegistry
@@ -16,6 +18,7 @@ class Orchestrator:
         Config.validate()
         self.llm = LLMClient()
         self.context = ConversationContext()
+        self.router = IntentRouter()
         
         # 1. Setup the Action System!
         self.registry = ActionRegistry()
@@ -40,7 +43,47 @@ class Orchestrator:
 
         self.context.add_message("user", user_input.strip())
 
-        # 2. We need a loop! Because the LLM might ask for a tool, get the result, 
+        # 1. Ask the ML Router for the intent
+        intent = self.router.route_request(user_input)
+        print(f"\n[ROUTER] Intent identified: {intent}")
+
+        # 2. Map deterministic intents directly to tools
+        # Note: We only map tools we've actually built so far!
+        intent_to_tool = {
+            "GET_TIME": "get_time",
+            "GET_DATE": "get_date",
+            "SYSTEM_INFO": "get_system_info",
+        }
+        
+        if intent in intent_to_tool:
+            tool_name = intent_to_tool[intent]
+            print(f"[ROUTER] ⚡ Bypassing Gemini! Directly executing '{tool_name}'...")
+            
+            # Execute the tool without asking Gemini
+            tool_result = self.executor.execute_action(tool_name)
+            
+            # Create a simple deterministic response
+            response = f"Result: {tool_result}"
+            self.context.add_message("assistant", response)
+            return response
+            
+        # 3. Handle GREETING deterministically without tools or Gemini
+        if intent == "GREETING":
+            print("[ROUTER] ⚡ Bypassing Gemini! Generating deterministic greeting...")
+            greetings = [
+                "Hi! How can I help you?",
+                "Hello! What can I do for you?",
+                "Hey! I'm listening.",
+                "Hi there! What's up?"
+            ]
+            response = random.choice(greetings)
+            self.context.add_message("assistant", response)
+            return response
+            
+        # 4. For GENERAL_QUESTION, UNKNOWN, or intents needing args (like Calculator), fallback to Gemini!
+        print("[ROUTER] 🧠 Falling back to Gemini LLM...")
+
+        # 5. We need a loop! Because the LLM might ask for a tool, get the result, 
         # and then ask for ANOTHER tool before giving a final answer.
         MAX_TURNS = 5
         
@@ -72,6 +115,16 @@ class Orchestrator:
                     return response.content
 
             except Exception as e:
-                return f"⚠️ Something went wrong: {e}"
+                error_str = str(e)
+                if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
+                    fallback = "I'm sorry, my API quota is currently exhausted. Please try again later."
+                    self.context.add_message("assistant", fallback)
+                    return fallback
+                elif "503" in error_str or "UNAVAILABLE" in error_str:
+                    fallback = "I'm sorry, the Google servers are currently experiencing high demand. Please try again later."
+                    self.context.add_message("assistant", fallback)
+                    return fallback
+                else:
+                    return f"⚠️ Something went wrong: {error_str}"
                 
         return "⚠️ Error: The AI got stuck in a loop and tried to use too many tools."

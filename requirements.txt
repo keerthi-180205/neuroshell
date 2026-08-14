@@ -4,9 +4,18 @@
 # ──────────────────────────────────────────────────────────
 
 # ── Stage 1: Core dependencies ─────────────────────────────
-google-generativeai>=0.8.0     # Gemini SDK (LLM provider)
+google-genai>=0.3.0            # Gemini SDK (LLM provider)
 python-dotenv>=1.0.0           # Load .env files
 rich>=13.7.0                   # Beautiful terminal formatting
 
 # ── Testing ────────────────────────────────────────────────
 pytest>=8.0.0                  # Test framework
+
+# ── Stage 3: Voice Integration ─────────────────────────────
+SpeechRecognition>=3.10.0      # Microphone and STT wrapper
+PyAudio>=0.2.14                # Audio stream access (requires portaudio19-dev)
+pyttsx3>=2.90                  # Offline Text-to-Speech engine (requires espeak)
+
+# ── Stage 3: ML Router ─────────────────────────────────────
+scikit-learn>=1.3.0            # For loading the SVM intent classifier
+joblib>=1.3.0                  # For loading the .pkl model file
